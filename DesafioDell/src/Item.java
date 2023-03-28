@@ -1,10 +1,12 @@
-public class Item {
+public enum Item {
+    CELULAR("celular", 0.5), GELADEIRA("geladeira", 60), FREEZER("freezer", 100), 
+    CADEIRA("cadeira", 5), LUMINARIA("luminaria", 0.8), LAVADORA("lavadora de roupa", 120);
 
-    private String nome;
+    private final String nome;
 
-    private double peso;
+    private final double peso;
 
-    public Item(String nome, double peso) {
+    Item(String nome, double peso) {
         this.nome = nome;
         this.peso = peso;
     }
@@ -16,12 +18,5 @@ public class Item {
     public double getPeso() {
         return peso;
     }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setPeso(double peso) {
-        this.peso = peso;
-    }
+    
 }

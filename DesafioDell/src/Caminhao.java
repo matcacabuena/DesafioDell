@@ -1,22 +1,24 @@
-public class Caminhao {
+public enum Caminhao {
+    PEQUENO("pequeno porte", 4.87, 1000), MEDIO("medio porte", 11.92,  4000), GRANDE("grande porte", 27.44,  10000);
+    private final String nome;
+    private final double preco;
+    private final int carga;
 
-    private char porte;
-
-    //private double carga, custo;
-    //              kg    R$/km
-
-    public Caminhao(char porte) {
-        this.porte = porte;
+    Caminhao (String nome, double preco, int carga) {
+        this.nome= nome;
+        this.preco=preco;
+        this.carga=carga;
     }
 
-    public char getPorte() {
-        return this.porte;
+    public String getNome() {
+        return nome;
     }
 
-    public void setPorte(char porte) {
-        this.porte = porte;
+    public double getPreco() {
+        return preco;
+    }
+
+    public int getCarga() {
+        return carga;
     }
 }
-//while peso > 8 usa caminhao grande porte
-//while peso > 2 usa caminhao porte medio 
-//while peso > 0 usa caminhao porte pequeno 
