@@ -119,15 +119,16 @@ public class App {
                 cidadeOrigem, cidadeDestino, sigla, distancia, frota.consultaTrechoModalidade(c, distancia));
     }
 
-    // for com cidades: cada um com origem, destino e itens de
-    // transporte. Quando for mais de um transporte, perguntar quantos itens serão
-    // deixados naquela viagem, a partir daí, subtrair
-    // o número de carga com outro calculo de peso de itens.
+    //para fazer o cadastramento com mais de 1 cidade, adiciona um ID no transporte para conseguir
+    //identificar o transporte TOTAL do PARCIAL. Transformar origem = destino e destino = null ao fim do for
+    //achar uma maneira de identificar se ele quer deixar itens ou transportar itens (só pode transportar itens se i = 0)
+    //cuidar para nao lotar de switch
     public void cadastraTransporte() {
         String origem;
         String destino;
         int qtdItem = 0;
         int opcao = -1;
+        int id = 1;
         double peso = 0;
         Item item;
         ArrayList<Item> itens = new ArrayList();
@@ -135,14 +136,14 @@ public class App {
 
         System.out.println(
                 "Digite a quantia de cidades que você deseja transportar seus itens: ");
-        int cidades = in.nextInt();
+        int qtdCidade = in.nextInt();
         in.nextLine();
 
         System.out.println("Qual a cidade de origem?");
         origem = in.nextLine();
         origem = origem.toUpperCase();
 
-        for (int i = 0; i < cidades; i++) {
+        for (int i = 0; i < qtdCidade; i++) {
 
             System.out.println("\nDigite o destino do transporte que partirá da cidade " + origem + ":");
             destino = in.nextLine();
@@ -254,6 +255,7 @@ public class App {
                     qtdCpeq, qtdCmed, qtdCgran);
             System.out.printf("\n de forma a resultar no menor custo de transporte por km rodado. O valor total do transporte dos itens é R$ %.2f", frota.transportePreco(t));
         }
+
     }
 
     public void dadosEstatisticos() {

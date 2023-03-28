@@ -11,7 +11,7 @@ public class Transporte {
     private ArrayList<Caminhao> frota;
 
     private ArrayList<Item> itens;
-
+    //add id
     public Transporte(String origem, String destino) {
         this.origem = origem;
         this.destino = destino;
