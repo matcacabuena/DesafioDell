@@ -119,10 +119,14 @@ public class App {
                 cidadeOrigem, cidadeDestino, sigla, distancia, frota.consultaTrechoModalidade(c, distancia));
     }
 
-    //para fazer o cadastramento com mais de 1 cidade, adiciona um ID no transporte para conseguir
-    //identificar o transporte TOTAL do PARCIAL. Transformar origem = destino e destino = null ao fim do for
-    //achar uma maneira de identificar se ele quer deixar itens ou transportar itens (só pode transportar itens se i = 0)
-    //cuidar para nao lotar de switch
+    // para fazer o cadastramento com mais de 1 cidade, adiciona um ID no transporte
+    // para conseguir
+    // identificar o transporte TOTAL do PARCIAL. Transformar origem = destino e
+    // destino = null ao fim do for
+    // achar uma maneira de identificar se ele quer deixar itens ou transportar
+    // itens (só pode transportar itens se i = 0)
+    // cuidar para nao lotar de switch
+    //
     public void cadastraTransporte() {
         String origem;
         String destino;
@@ -145,115 +149,126 @@ public class App {
 
         for (int i = 0; i < qtdCidade; i++) {
 
-            System.out.println("\nDigite o destino do transporte que partirá da cidade " + origem + ":");
-            destino = in.nextLine();
-            destino = destino.toUpperCase();
-            do {
-                boolean ok;
+            if (i == 0) {
+                System.out.println("\nDigite o destino do transporte que partirá da cidade " + origem + ":");
+                destino = in.nextLine();
+                destino = destino.toUpperCase();
                 do {
-                    System.out.println("\nSelecione o tipo de item que deseja transportar: ");
-                    System.out.printf(
-                            "[1] Celular\n[2] Geladeira\n[3] Freezer\n[4] Cadeira\n[5] Luminaria\n[6] Lavadora de roupa\n[7] Já selecionei todos os itens\n");
-                    ok = true;
-                    try {
-                        opcao = in.nextInt();
-                    } catch (InputMismatchException e1) {
-                        in.nextLine();
-                        ok = false;
-                        System.out.println("Tipo incorreto. Redigite.\n");
-                    } catch (Exception e2) {
-                        in.nextLine();
-                        ok = false;
-                        e2.printStackTrace();
-                        System.out.println("Redigite.\n");
-                    }
-                    if (opcao != 7) {
-                        qtdItem = 0;
-                        System.out.println("Quantas unidades deste item você deseja transportar?");
+                    boolean ok;
+                    do {
+                        System.out.println("\nSelecione o tipo de item que deseja transportar: ");
+                        System.out.printf(
+                                "[1] Celular\n[2] Geladeira\n[3] Freezer\n[4] Cadeira\n[5] Luminaria\n[6] Lavadora de roupa\n[7] Já selecionei todos os itens\n");
+                        ok = true;
                         try {
-                            qtdItem = in.nextInt();
+                            opcao = in.nextInt();
                         } catch (InputMismatchException e1) {
                             in.nextLine();
+                            ok = false;
                             System.out.println("Tipo incorreto. Redigite.\n");
                         } catch (Exception e2) {
                             in.nextLine();
+                            ok = false;
                             e2.printStackTrace();
                             System.out.println("Redigite.\n");
                         }
+                        if (opcao != 7) {
+                            qtdItem = 0;
+                            System.out.println("Quantas unidades deste item você deseja transportar?");
+                            try {
+                                qtdItem = in.nextInt();
+                            } catch (InputMismatchException e1) {
+                                in.nextLine();
+                                System.out.println("Tipo incorreto. Redigite.\n");
+                            } catch (Exception e2) {
+                                in.nextLine();
+                                e2.printStackTrace();
+                                System.out.println("Redigite.\n");
+                            }
+                        }
+                    } while (!ok);
+                    in.nextLine();
+
+                    switch (opcao) {
+                        case 1:
+                            item = Item.CELULAR;
+                            item.setQuantity(qtdItem);
+                            itens.add(item);
+                            peso += item.getPeso() * item.getQuantity();
+                            break;
+                        case 2:
+                            item = Item.GELADEIRA;
+                            item.setQuantity(qtdItem);
+                            itens.add(item);
+                            peso += item.getPeso() * item.getQuantity();
+                            break;
+                        case 3:
+                            item = Item.FREEZER;
+                            item.setQuantity(qtdItem);
+                            itens.add(item);
+                            peso += item.getPeso() * item.getQuantity();
+                            break;
+                        case 4:
+                            item = Item.CADEIRA;
+                            item.setQuantity(qtdItem);
+                            itens.add(item);
+                            peso += item.getPeso() * item.getQuantity();
+                            break;
+                        case 5:
+                            item = Item.LUMINARIA;
+                            item.setQuantity(qtdItem);
+                            itens.add(item);
+                            peso += item.getPeso() * item.getQuantity();
+                            break;
+                        case 6:
+                            item = Item.LAVADORA;
+                            item.setQuantity(qtdItem);
+                            itens.add(item);
+                            peso += item.getPeso() * item.getQuantity();
+                            break;
+                        case 7:
+                            break;
+                        default:
+                            System.out.println("Opção inválida");
                     }
-                } while (!ok);
-                in.nextLine();
+                } while (opcao != 7);
 
-                switch (opcao) {
-                    case 1:
-                        item = Item.CELULAR;
-                        itens.add(item);
-                        peso += item.getPeso() * qtdItem;
-                        break;
-                    case 2:
-                        item = Item.GELADEIRA;
-                        itens.add(item);
-                        peso += item.getPeso() * qtdItem;
-                        break;
-                    case 3:
-                        item = Item.FREEZER;
-                        itens.add(item);
-                        peso += item.getPeso() * qtdItem;
-                        break;
-                    case 4:
-                        item = Item.CADEIRA;
-                        itens.add(item);
-                        peso += item.getPeso() * qtdItem;
-                        break;
-                    case 5:
-                        item = Item.LUMINARIA;
-                        itens.add(item);
-                        peso += item.getPeso() * qtdItem;
-                        break;
-                    case 6:
-                        item = Item.LAVADORA;
-                        itens.add(item);
-                        peso += item.getPeso() * qtdItem;
-                        break;
-                    case 7:
-                        break;
-                    default:
-                        System.out.println("Opção inválida");
+                t = new Transporte(origem, destino);
+                frota.cadastraTransporte(t, itens, peso);
+                System.out.println("");
+                System.out.printf(
+                        "\nde %s para %s, a distância a ser percorrida é de %dkm.\nPara o transporte dos produtos ",
+                        origem, destino, frota.consultaDistancia(origem, destino));
+
+                String itAnt = null;
+                for (Item it : itens) {
+                    if (it.getNome() != itAnt) {
+                        System.out.printf("%s, ", it.getNome());
+                    }
+                    itAnt = it.getNome();
                 }
-            } while (opcao != 7);
 
-            t = new Transporte(origem, destino);
-            frota.cadastraTransporte(t, itens, peso);
-            System.out.println("");
-            System.out.printf("\nde %s para %s, a distância a ser percorrida é de %dkm.\nPara o transporte dos produtos ",
-                    origem, destino, frota.consultaDistancia(origem, destino));
+                System.out.printf("será necessário utilizar ");
 
-            String itAnt = null;
-            for (Item it : itens) {
-                if (it.getNome() != itAnt) {
-                    System.out.printf("%s, ", it.getNome());
+                int qtdCpeq = 0, qtdCmed = 0, qtdCgran = 0;
+                for (Caminhao c : frota.qtdCaminhao(t)) {
+                    if (c.getNome() == "pequeno porte") {
+                        qtdCpeq += 1;
+                    }
+                    if (c.getNome() == "medio porte") {
+                        qtdCmed += 1;
+                    }
+                    if (c.getNome() == "grande porte") {
+                        qtdCgran += 1;
+                    }
                 }
-                itAnt = it.getNome();
+                System.out.printf(
+                        "\n[%d] caminhões de pequeno porte \n[%d] caminhões de médio porte \n[%d] caminhões de grande porte",
+                        qtdCpeq, qtdCmed, qtdCgran);
+                System.out.printf(
+                        "\n de forma a resultar no menor custo de transporte por km rodado. O valor total do transporte dos itens é R$ %.2f",
+                        frota.transportePreco(t));
             }
-
-            System.out.printf("será necessário utilizar ");
-
-            int qtdCpeq = 0, qtdCmed = 0, qtdCgran = 0;
-            for (Caminhao c : frota.qtdCaminhao(t)) {
-                if (c.getNome() == "pequeno porte") {
-                    qtdCpeq += 1;
-                }
-                if (c.getNome() == "medio porte") {
-                    qtdCmed += 1;
-                }
-                if (c.getNome() == "grande porte") {
-                    qtdCgran += 1;
-                }
-            }
-            System.out.printf(
-                    "\n[%d] caminhões de pequeno porte \n[%d] caminhões de médio porte \n[%d] caminhões de grande porte",
-                    qtdCpeq, qtdCmed, qtdCgran);
-            System.out.printf("\n de forma a resultar no menor custo de transporte por km rodado. O valor total do transporte dos itens é R$ %.2f", frota.transportePreco(t));
         }
 
     }

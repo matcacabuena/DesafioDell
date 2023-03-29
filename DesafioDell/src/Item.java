@@ -6,13 +6,33 @@ public enum Item {
 
     private final double peso;
 
-    Item(String nome, double peso) {
+    private int quantidade;
+
+    Item(String nome, double peso ) {
         this.nome = nome;
         this.peso = peso;
     }
 
     public String getNome() {
         return nome;
+    }
+
+    public int getQuantity() {
+        return quantidade;
+    }
+
+    public void setQuantity(int itemQuantity) {
+        this.quantidade = itemQuantity;
+    }
+
+    public int removeQuantity(int removedItems) {
+        if(this.quantidade > 0) {
+            this.quantidade = this.quantidade - removedItems;
+            return removedItems;
+        } else {
+            return 0;
+        }
+
     }
 
     public double getPeso() {
